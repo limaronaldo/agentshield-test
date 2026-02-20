@@ -1,0 +1,28 @@
+name: Agent Security Scan
+
+on: [push, pull_request]
+
+permissions:
+  security-events: write
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run AgentShield
+        id: agentshield
+        uses: limaronaldo/agentshield@v0.2.0
+        with:
+          path: '.'
+          fail-on: 'high'
+          upload-sarif: true
+
+      - name: Print results
+        if: always()
+        run: |
+          echo "Finding count: ${{ steps.agentshield.outputs.finding-count }}"
+          echo "Exit code: ${{ steps.agentshield.outputs.exit-code }}"
+          echo "SARIF file: ${{ steps.agentshield.outputs.sarif-file }}"
