@@ -5,6 +5,7 @@ on: [push, pull_request, workflow_dispatch]
 permissions:
   security-events: write
   contents: read
+  pull-requests: write
 
 jobs:
   scan:
@@ -14,7 +15,7 @@ jobs:
 
       - name: Run AgentShield
         id: agentshield
-        uses: limaronaldo/agentshield@v0.2.0
+        uses: limaronaldo/agentshield@v0.2.1
         with:
           path: '.'
           fail-on: 'high'
