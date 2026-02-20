@@ -15,7 +15,7 @@ jobs:
 
       - name: Run AgentShield
         id: agentshield
-        uses: limaronaldo/agentshield@v0.2.1
+        uses: limaronaldo/agentshield@v0.2.3
         with:
           path: '.'
           fail-on: 'high'
